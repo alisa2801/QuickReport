@@ -39,6 +39,7 @@
         </activity>
         <activity android:name=".ReportOrCheck" />
         <activity android:name=".ReportedSuccess" />
+        <activity android:name=".RegisterUser" />
 
     </application>
 
