@@ -15,7 +15,7 @@ public class ReportedSuccess extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reportedsuccess);
 
-        buttonBackReportOrCheck = (Button) findViewById(R.id.buttonbackreporcheck);
+        buttonBackReportOrCheck = findViewById(R.id.buttonbackreporcheck);
         buttonBackReportOrCheck.setOnClickListener(this);
     }
 

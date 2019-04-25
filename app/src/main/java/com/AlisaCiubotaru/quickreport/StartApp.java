@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -79,6 +80,19 @@ public class StartApp extends AppCompatActivity implements View.OnClickListener 
     private void loginUser(){
         final String mail = email.getText().toString().trim();
         final String pass = password.getText().toString().trim();
+
+        if(TextUtils.isEmpty(mail)){
+            //empty username
+            Toast.makeText(StartApp.this,"Please enter Email",Toast.LENGTH_SHORT).show();
+            //stop the function to execute
+//            return;
+        }
+
+        if(TextUtils.isEmpty(pass)){
+            //empty password
+            Toast.makeText(StartApp.this, "Please enter Password containing 1 UPPER letter",Toast.LENGTH_SHORT).show();
+//            return;
+        }
 
         mAuth.signInWithEmailAndPassword(mail, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

@@ -46,7 +46,7 @@ public class RegisterUser  extends AppCompatActivity implements View.OnClickList
         password = findViewById(R.id.passwordregister);
 
         button_register.setOnClickListener(this);
-        databaseReference = FirebaseDatabase.getInstance().getReference("ReporterUser");
+        databaseReference = FirebaseDatabase.getInstance().getReference("User");
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
@@ -82,6 +82,12 @@ public class RegisterUser  extends AppCompatActivity implements View.OnClickList
             Toast.makeText(RegisterUser.this, "Please enter Password containing 1 UPPER letter",Toast.LENGTH_SHORT).show();
 //            return;
         }
+
+        if(pass.length()< 6 && !TextUtils.isEmpty(pass)){
+            //empty password
+            Toast.makeText(RegisterUser.this, "Please enter a Password longer than 6 characters",Toast.LENGTH_SHORT).show();
+//            return;
+        }
         //if validations are ok
 //        progressDialog.setMessage("Registering user...");
 //        progressDialog.show();
@@ -91,11 +97,11 @@ public class RegisterUser  extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            ReporterUser userReporter = new ReporterUser(
+                            User userReporter = new User(
                                     fname, mail, user
                             );
 
-                            FirebaseDatabase.getInstance().getReference("ReporterUser")
+                            FirebaseDatabase.getInstance().getReference("User")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(userReporter).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

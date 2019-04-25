@@ -1,16 +1,19 @@
 package com.AlisaCiubotaru.quickreport;
 
-public class ReporterUser {
+public class User {
     private String fullName,email,username;
+    private boolean userRole, solverRole;
 
-//    public  ReporterUser(){
+//    public  User(){
 //
 //    }
 //
-    public ReporterUser(String fullName, String email, String username){
+    public User(String fullName, String email, String username){
         this.fullName = fullName;
         this.email = email;
         this.username = username;
+        this.userRole = true;
+        this.solverRole = false;
     }
 
     public String getFullName(){
@@ -24,4 +27,8 @@ public class ReporterUser {
     public String getUsername(){
         return username;
     }
+
+    public boolean getUserRole() { return userRole; }
+
+    public boolean getSolverRole() { return solverRole; }
 }

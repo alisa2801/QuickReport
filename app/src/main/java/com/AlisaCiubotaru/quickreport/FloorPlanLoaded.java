@@ -16,6 +16,7 @@ import android.widget.Toast;
 public class FloorPlanLoaded extends AppCompatActivity implements View.OnTouchListener {
     //cautat textviewul din problemReporter
 //    TextView textView = (TextView) findViewById(R.id.textView3) ;
+    private static String selectedroom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,15 +91,19 @@ public class FloorPlanLoaded extends AppCompatActivity implements View.OnTouchLi
                     //nextImage = R.drawable.p2_ship_powered;
                     //se salveaza numele incaperii intr-un vector or smth
 //                    textView.setText("Rosu");
-                    setContentView(R.layout.problem_reporter);
-                    TextView textCuloare = (TextView) findViewById(R.id.reportRoom);
-                    textCuloare.setText("Great Room");
-                    //openProblemReporter();
+//                    setContentView(R.layout.activity_problemreporter);
+//                    setContentView(R.layout.activity_report);
+//                    TextView textCuloare = (TextView) findViewById(R.id.reportRoom);
+//                    textCuloare.setText("Great Room");
+                    selectedroom ="Great Room";
+                    openProblemReporter();
                 }
                 else if (ct.closeMatch (Color.BLUE, touchColor, tolerance)){
-                    setContentView(R.layout.problem_reporter);
-                    TextView textCuloare = (TextView) findViewById(R.id.reportRoom);
-                    textCuloare.setText("BedRoom");
+//                    setContentView(R.layout.activity_report);
+//                    TextView textCuloare = (TextView) findViewById(R.id.reportRoom);
+//                    textCuloare.setText("BedRoom");
+                    selectedroom ="Bedroom";
+                    openProblemReporter();
                 }
                 else if (ct.closeMatch (Color.YELLOW, touchColor, tolerance)) nextImage = R.drawable.p2_ship_no_star;
                 else if (ct.closeMatch (Color.WHITE, touchColor, tolerance)) nextImage = R.drawable.p2_ship_default;
@@ -179,7 +184,12 @@ public class FloorPlanLoaded extends AppCompatActivity implements View.OnTouchLi
     }
 
     public void openProblemReporter(){
-        Intent intent = new Intent(this, ProblemReporter.class);
+        Intent intent = new Intent(this, Report.class);
+//        Intent intent = new Intent(this, ProblemReporter.class);
         startActivity(intent);
+    }
+
+    public static String getRoom(){
+        return selectedroom;
     }
 } // end class
