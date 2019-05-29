@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="128dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btnupl1"-->
+            <!--android:layout_width="140dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="40dp"-->
+            <!--android:background="@drawable/buttonstylepink"-->
+            <!--android:drawableRight="@drawable/ic_send_white_24dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="Upload fmm"-->
+            <!--android:textColor="#fff" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btnCaptureImage"-->
+            <!--android:layout_width="140dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="40dp"-->
+            <!--android:background="@drawable/buttonstylepink"-->
+            <!--android:drawableRight="@drawable/ic_send_white_24dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="Capture Image"-->
+            <!--android:textColor="#fff" />-->
+    <!--</LinearLayout>-->
+    <LinearLayout
+        android:layout_width="301dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCaptureImage"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/buttonstylepink"
+            android:drawableRight="@drawable/ic_send_white_24dp"
+            android:gravity="center"
+            android:text="Incarca"
+            android:textColor="#fff" />
+
+        <Button
+            android:id="@+id/btnupl1"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/buttonstylepink"
+            android:drawableRight="@drawable/ic_send_white_24dp"
+            android:text="Confirma"
+            android:textColor="#fff"
+            android:transformPivotX="?attr/listPreferredItemPaddingRight"
+            android:translationX="?attr/listPreferredItemPaddingRight" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="466dp" />
+
+</LinearLayout>

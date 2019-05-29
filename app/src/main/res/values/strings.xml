@@ -2,4 +2,5 @@
     <string name="app_name">QuickReport</string>
     <string name="welcome_msg">Welcome to Apl</string>
     <string name="loginDescr_msg">Jelly candy sugar plum cheesecake brownie I love. Caramels apple pie marzipan oat cake chocolate bar cake gingerbread. Caramels I love I love lemon drops toffee cotton candy croissant chocolate bar gummies.</string>
+    <string name="please_wait_text">Please wait...</string>
 </resources>

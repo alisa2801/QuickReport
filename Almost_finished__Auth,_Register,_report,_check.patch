@@ -1,0 +1,1692 @@
+Index: app/src/main/java/com/AlisaCiubotaru/quickreport/StartApp.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/AlisaCiubotaru/quickreport/StartApp.java	(revision a3fc79e6133ec34fdde018b701fad53d74d8abe8)
++++ app/src/main/java/com/AlisaCiubotaru/quickreport/StartApp.java	(date 1556361545612)
+@@ -81,18 +81,13 @@
+         final String mail = email.getText().toString().trim();
+         final String pass = password.getText().toString().trim();
+ 
+-        if(TextUtils.isEmpty(mail)){
++        if(TextUtils.isEmpty(mail) || TextUtils.isEmpty(pass)){
+             //empty username
+-            Toast.makeText(StartApp.this,"Please enter Email",Toast.LENGTH_SHORT).show();
++            Toast.makeText(StartApp.this,"Please enter Email and Password",Toast.LENGTH_SHORT).show();
+             //stop the function to execute
+-//            return;
++            return;
+         }
+ 
+-        if(TextUtils.isEmpty(pass)){
+-            //empty password
+-            Toast.makeText(StartApp.this, "Please enter Password containing 1 UPPER letter",Toast.LENGTH_SHORT).show();
+-//            return;
+-        }
+ 
+         mAuth.signInWithEmailAndPassword(mail, pass)
+                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+Index: app/src/main/java/com/AlisaCiubotaru/quickreport/ReportOrCheck.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/AlisaCiubotaru/quickreport/ReportOrCheck.java	(revision a3fc79e6133ec34fdde018b701fad53d74d8abe8)
++++ app/src/main/java/com/AlisaCiubotaru/quickreport/ReportOrCheck.java	(date 1559159302753)
+@@ -28,7 +28,8 @@
+     }
+ 
+     public void openActivityCheck(){
+-        Intent intent = new Intent(this, CheckStatus.class);
++//        Intent intent = new Intent(this, CheckStatus.class);
++        Intent intent = new Intent(this, ViewDatabase.class);
+         startActivity(intent);
+     }
+ 
+Index: app/src/main/java/com/AlisaCiubotaru/quickreport/Problema.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/AlisaCiubotaru/quickreport/Problema.java	(date 1559160425866)
++++ app/src/main/java/com/AlisaCiubotaru/quickreport/Problema.java	(date 1559160425866)
+@@ -0,0 +1,118 @@
++package com.AlisaCiubotaru.quickreport;
++
++import android.support.annotation.NonNull;
++
++import com.google.android.gms.tasks.OnCompleteListener;
++import com.google.android.gms.tasks.Task;
++import com.google.firebase.database.FirebaseDatabase;
++
++import java.util.UUID;
++
++public class Problema {
++//    private String usernameReporter;
++//    private String fullNameReporter;
++//    private String emailReporter;
++//    private String pathImg;
++//    private String moreDetails;
++//    private String roomReporter;
++//    private  String userUuid;
++public String usernameReporter;
++    public String fullNameReporter;
++    public String emailReporter;
++    public String pathImg;
++    public String moreDetails;
++    public String roomReporter;
++    public  String userUuid;
++
++//    private ArrayList<String> checkFormatProblema;
++
++    public Problema(String usernameReporter,String emailReporter, String pathImg, String moreDetails,
++                    String fullNameReporter, String roomReporter, String userUuid)
++    {
++        this.usernameReporter = usernameReporter;
++        this.fullNameReporter = fullNameReporter;
++        this.emailReporter = emailReporter;
++        this.pathImg = pathImg;
++        this.moreDetails = moreDetails;
++        this.roomReporter = roomReporter;
++        this.userUuid = userUuid;
++
++//        checkFormatProblema.add(usernameReporter);
++//        checkFormatProblema.add(emailReporter);
++//        checkFormatProblema.add(pathImg);
++//        checkFormatProblema.add(moreDetails);
++//        checkFormatProblema.add(fullNameReporter);
++//        checkFormatProblema.add(roomReporter);
++    }
++
++    public Problema(){}
++//    public ArrayList<String> getCheckFormat()
++//    {
++//        return checkFormatProblema;
++//    }
++
++//    public void raporteazaProblema()
++//    {
++//        Problema problema = new Problema(
++//                fname, mail, user
++//        );
++//        FirebaseDatabase.getInstance().getReference("Probleme")
++//                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
++//                .setValue(userReporter).addOnCompleteListener(new OnCompleteListener<Void>() {
++//            @Override
++//            public void onComplete(@NonNull Task<Void> task) {
++//                Toast.makeText(RegisterUser.this, "Registation Complete! Authenticate with your user!", Toast.LENGTH_SHORT).show();
++//                startActivity(new Intent(getApplicationContext(), StartApp.class));
++//
++//            }
++//        }
++//    }
++
++
++
++    public boolean raporteazaProblema(Problema problema){
++        final boolean[] success = {false};
++        UUID uuid = UUID.randomUUID();
++        String userChild = uuid.toString();
++//        String imgPath = problema.getPathImg();
++//        Toast.makeText(this, "IMAGE PATH= "+imgPath, Toast.LENGTH_SHORT).show();
++//        System.out.println("IMAge PATHe= "+imgPath);
++        FirebaseDatabase.getInstance().getReference("Probleme")
++
++                        //.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
++                        .child(userChild)
++                        .setValue(problema).addOnCompleteListener(new OnCompleteListener<Void>() {
++                    @Override
++                    public void onComplete(@NonNull Task<Void> task) {
++                        success[0] = true;
++                    }
++                });
++        return success[0];
++    }
++
++    public String getUsernameReporter(){
++        return usernameReporter;
++    }
++
++    public String getEmailReporter() {
++        return emailReporter;
++    }
++
++    public String getFullNameReporter() {
++        return fullNameReporter;
++    }
++
++    public String getPathImg(){
++        return pathImg;
++    }
++
++    public String getMoreDetails(){
++        return moreDetails;
++    }
++
++    public String getRoomReporter(){
++        return roomReporter;
++    }
++
++    public String getUserUuid(){return  userUuid;}
++}
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision a3fc79e6133ec34fdde018b701fad53d74d8abe8)
++++ app/src/main/AndroidManifest.xml	(date 1559159302773)
+@@ -1,7 +1,18 @@
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
+     package="com.AlisaCiubotaru.quickreport">
+ 
+     <uses-permission android:name="android.permission.INTERNET " />
++    <uses-feature android:name="android.hardware.camera"
++        android:required="true" />
++
++
++    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
++    <uses-permission android:name="android.permission.CAMERA" />
++    <uses-feature android:name="android.hardware.camera.autofocus" />
++
++    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
++
+ 
+     <application
+         android:allowBackup="true"
+@@ -28,11 +39,29 @@
+             </intent-filter>
+         </activity>
+ 
++
+         <activity android:name=".ReportOrCheck" />
+         <activity android:name=".RegisterUser" />
+-        <activity android:name=".CheckStatus" />
+         <activity android:name=".ReportedSuccess" />
+         <activity android:name=".Report" />
++        <activity android:name=".ViewDatabase"/>
++
++
++        <activity android:name=".CameraCapture"/>
++        <activity android:name=".CheckStatus"/>
++
++
++        <provider
++            android:name="android.support.v4.content.FileProvider"
++            android:authorities="com.AlisaCiubotaru.quickreport.fileprovider"
++            android:exported="false"
++            android:grantUriPermissions="true"
++            tools:replace="android:authorities">
++            <meta-data
++                android:name="android.support.FILE_PROVIDER_PATHS"
++                android:resource="@xml/file_paths"
++                tools:replace="android:resource"/>
++        </provider>
+ 
+     </application>
+ 
+Index: app/src/main/java/com/AlisaCiubotaru/quickreport/CustomFileProvider.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/AlisaCiubotaru/quickreport/CustomFileProvider.java	(date 1558215111077)
++++ app/src/main/java/com/AlisaCiubotaru/quickreport/CustomFileProvider.java	(date 1558215111077)
+@@ -0,0 +1,6 @@
++package com.AlisaCiubotaru.quickreport;
++
++import android.support.v4.content.FileProvider;
++
++public class CustomFileProvider extends FileProvider {
++}
+Index: app/src/main/res/xml/file_paths.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/xml/file_paths.xml	(date 1558212470430)
++++ app/src/main/res/xml/file_paths.xml	(date 1558212470430)
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<paths xmlns:android="http://schemas.android.com/apk/res/android">
++    <external-path name="my_images" path="Android/data/com.AlisaCiubotaru.quickreport/files/Pictures" />
++</paths>
+\ No newline at end of file
+Index: app/src/main/java/com/AlisaCiubotaru/quickreport/CameraCapture.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/AlisaCiubotaru/quickreport/CameraCapture.java	(date 1558907550100)
++++ app/src/main/java/com/AlisaCiubotaru/quickreport/CameraCapture.java	(date 1558907550100)
+@@ -0,0 +1,289 @@
++package com.AlisaCiubotaru.quickreport;
++
++
++import android.Manifest;
++import android.app.ProgressDialog;
++import android.content.Context;
++import android.content.Intent;
++import android.content.pm.PackageManager;
++import android.graphics.Bitmap;
++import android.graphics.BitmapFactory;
++import android.net.Uri;
++import android.os.Build;
++import android.os.Bundle;
++import android.os.Environment;
++import android.provider.MediaStore;
++import android.support.annotation.NonNull;
++import android.support.v4.app.ActivityCompat;
++import android.support.v4.content.ContextCompat;
++import android.support.v4.content.FileProvider;
++import android.support.v7.app.AppCompatActivity;
++import android.util.Log;
++import android.view.View;
++import android.widget.Button;
++import android.widget.ImageView;
++import android.widget.Toast;
++
++import com.google.android.gms.tasks.OnFailureListener;
++import com.google.android.gms.tasks.OnSuccessListener;
++import com.google.firebase.auth.FirebaseAuth;
++import com.google.firebase.storage.FirebaseStorage;
++import com.google.firebase.storage.OnProgressListener;
++import com.google.firebase.storage.StorageReference;
++import com.google.firebase.storage.UploadTask;
++
++import java.io.File;
++import java.io.IOException;
++import java.text.SimpleDateFormat;
++import java.util.Date;
++import java.util.Locale;
++
++public class CameraCapture extends AppCompatActivity {
++
++    ImageView imageView;
++    Button button;
++    Button upl;
++    File photoFile = null;
++    static final int CAPTURE_IMAGE_REQUEST = 1;
++
++
++    String mCurrentPhotoPath;
++    private static final String IMAGE_DIRECTORY_NAME = "VLEMONN";
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_cameracapture);
++
++        imageView =  findViewById(R.id.imageView);
++        button = findViewById(R.id.btnCaptureImage);
++        upl = findViewById(R.id.btnupl1);
++
++        button.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View view) {
++                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
++                    captureImage();
++                }
++                else
++                {
++                    captureImage2();
++                }
++            }
++        });
++        
++        upl.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View view) {
++                uploadfmm();
++            }
++        });
++    }
++
++    /* Capture Image function for 4.4.4 and lower. Not tested for Android Version 3 and 2 */
++    private void captureImage2() {
++
++        try {
++            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
++            photoFile = createImageFile4();
++            if(photoFile!=null)
++            {
++                displayMessage(getBaseContext(),photoFile.getAbsolutePath());
++                Log.i("Mayank",photoFile.getAbsolutePath());
++                Uri photoURI = FileProvider.getUriForFile(this,
++                        "com.AlisaCiubotaru.quickreport.fileprovider", photoFile);
++                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
++                startActivityForResult(cameraIntent, CAPTURE_IMAGE_REQUEST);
++            }
++        }
++        catch (Exception e)
++        {
++            displayMessage(getBaseContext(),"Camera is not available."+e.toString());
++        }
++    }
++
++    private void captureImage()
++    {
++
++        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
++            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
++        }
++        else
++        {
++            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
++            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
++                // Create the File where the photo should go
++                try {
++
++                    photoFile = createImageFile();
++                    displayMessage(getBaseContext(),photoFile.getAbsolutePath());
++                    Log.i("Mayank",photoFile.getAbsolutePath());
++
++                    // Continue only if the File was successfully created
++                    if (photoFile != null) {
++                        Uri photoURI = FileProvider.getUriForFile(this,
++                                "com.AlisaCiubotaru.quickreport.fileprovider", photoFile);
++                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
++                        startActivityForResult(takePictureIntent, CAPTURE_IMAGE_REQUEST);
++                    }
++                } catch (Exception ex) {
++                    // Error occurred while creating the File
++                    displayMessage(getBaseContext(),ex.getMessage().toString());
++                }
++
++
++            }else
++            {
++                displayMessage(getBaseContext(),"Nullll");
++            }
++        }
++
++
++
++    }
++
++    @Override
++    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
++
++        //Bundle extras = data.getExtras();
++        //Bitmap imageBitmap = (Bitmap) extras.get("data");
++        //imageView.setImageBitmap(imageBitmap);
++
++        if (requestCode == CAPTURE_IMAGE_REQUEST && resultCode == RESULT_OK) {
++            Bitmap myBitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
++            imageView.setImageBitmap(myBitmap);
++        }
++        else
++        {
++            displayMessage(getBaseContext(),"Request cancelled or something went wrong.");
++        }
++
++    }
++
++    private File createImageFile4()
++    {
++        // External sdcard location
++        File mediaStorageDir = new File(
++                Environment
++                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
++                IMAGE_DIRECTORY_NAME);
++        // Create the storage directory if it does not exist
++        if (!mediaStorageDir.exists()) {
++            if (!mediaStorageDir.mkdirs()) {
++                displayMessage(getBaseContext(),"Unable to create directory.");
++                return null;
++            }
++        }
++
++        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
++                Locale.getDefault()).format(new Date());
++        File mediaFile = new File(mediaStorageDir.getPath() + File.separator
++                + "IMG_" + timeStamp + ".jpg");
++
++        return mediaFile;
++
++    }
++
++    private File createImageFile() throws IOException {
++        // Create an image file name
++        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
++        String imageFileName = "JPEG_" + timeStamp + "_";
++        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
++        File image = File.createTempFile(
++                imageFileName,  /* prefix */
++                ".jpg",         /* suffix */
++                storageDir      /* directory */
++        );
++
++        // Save a file: path for use with ACTION_VIEW intents
++        mCurrentPhotoPath = image.getAbsolutePath();
++        return image;
++    }
++
++    private void displayMessage(Context context, String message)
++    {
++        Toast.makeText(context,message,Toast.LENGTH_LONG).show();
++    }
++
++    @Override
++    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
++        if (requestCode == 0) {
++            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
++                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
++                captureImage();
++            }
++        }
++
++    }
++    
++    private void uploadfmm(){
++
++
++            FirebaseStorage storage = FirebaseStorage.getInstance();
++            StorageReference storageReference = storage.getReferenceFromUrl("gs://quickreport-alisaciubotaru.appspot.com");
++            StorageReference spaceRef = storageReference.child("photos");
++
++            Uri myUri = Uri.fromFile(photoFile);
++        Uri filePath = myUri;
++            if (filePath != null) {
++                //displaying a progress dialog while upload is going on
++                final ProgressDialog progressDialog = new ProgressDialog(this);
++                progressDialog.setTitle("Uploading");
++                progressDialog.show();
++
++                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
++                        Locale.getDefault()).format(new Date());
++                final String imageName = "IMG_"+timeStamp+".jpg";
++                final StorageReference riversRef = storageReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()+"/"+imageName);
++                final String textViewCamera = riversRef.toString();
++
++                riversRef.putFile(filePath)
++                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
++                            @Override
++                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
++                                //if the upload is successfull
++                                //hiding the progress dialog
++                                progressDialog.dismiss();
++
++                                //and displaying a success toast
++                                Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
++                                Intent intent = new Intent();
++                                intent.putExtra("cameraPathTextValue", textViewCamera);
++                                intent.putExtra("imageName", imageName); //challenge
++                                setResult(RESULT_OK, intent);
++                                finish();
++                            }
++                        })
++                        .addOnFailureListener(new OnFailureListener() {
++                            @Override
++                            public void onFailure(@NonNull Exception exception) {
++                                //if the upload is not successfull
++                                //hiding the progress dialog
++                                progressDialog.dismiss();
++
++                                //and displaying error message
++                                Toast.makeText(getApplicationContext(), "EROAREEE onFailure: "+exception.getMessage(), Toast.LENGTH_LONG).show();
++                            }
++                        })
++                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
++                            @Override
++                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
++                                //calculating progress percentage
++                                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
++
++                                //displaying percentage in progress dialog
++                                progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
++                            }
++                        });
++            }
++            //if there is not any file
++            else {
++                Toast.makeText(getApplicationContext(), "Eroare elseeee", Toast.LENGTH_LONG).show();
++                //you can display an error toast
++            }
++
++
++        }
++    
++}
++
+Index: app/src/main/res/layout/activity_cameracapture.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_cameracapture.xml	(date 1558907351665)
++++ app/src/main/res/layout/activity_cameracapture.xml	(date 1558907351665)
+@@ -0,0 +1,72 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:orientation="vertical" android:layout_width="match_parent"
++    android:layout_height="match_parent">
++
++    <!--<LinearLayout-->
++        <!--android:layout_width="match_parent"-->
++        <!--android:layout_height="128dp"-->
++        <!--android:layout_gravity="center"-->
++        <!--android:layout_marginTop="20dp"-->
++        <!--android:orientation="horizontal">-->
++
++        <!--<Button-->
++            <!--android:id="@+id/btnupl1"-->
++            <!--android:layout_width="140dp"-->
++            <!--android:layout_height="wrap_content"-->
++            <!--android:layout_marginTop="40dp"-->
++            <!--android:background="@drawable/buttonstylepink"-->
++            <!--android:drawableRight="@drawable/ic_send_white_24dp"-->
++            <!--android:gravity="center"-->
++            <!--android:text="Upload fmm"-->
++            <!--android:textColor="#fff" />-->
++
++        <!--<Button-->
++            <!--android:id="@+id/btnCaptureImage"-->
++            <!--android:layout_width="140dp"-->
++            <!--android:layout_height="wrap_content"-->
++            <!--android:layout_marginTop="40dp"-->
++            <!--android:background="@drawable/buttonstylepink"-->
++            <!--android:drawableRight="@drawable/ic_send_white_24dp"-->
++            <!--android:gravity="center"-->
++            <!--android:text="Capture Image"-->
++            <!--android:textColor="#fff" />-->
++    <!--</LinearLayout>-->
++    <LinearLayout
++        android:layout_width="301dp"
++        android:layout_height="wrap_content"
++        android:layout_gravity="center|top"
++        android:layout_marginTop="20dp"
++        android:orientation="horizontal">
++
++        <Button
++            android:id="@+id/btnCaptureImage"
++            android:layout_width="140dp"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="40dp"
++            android:background="@drawable/buttonstylepink"
++            android:drawableRight="@drawable/ic_send_white_24dp"
++            android:gravity="center"
++            android:text="Incarca"
++            android:textColor="#fff" />
++
++        <Button
++            android:id="@+id/btnupl1"
++            android:layout_width="140dp"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="40dp"
++            android:background="@drawable/buttonstylepink"
++            android:drawableRight="@drawable/ic_send_white_24dp"
++            android:text="Confirma"
++            android:textColor="#fff"
++            android:transformPivotX="?attr/listPreferredItemPaddingRight"
++            android:translationX="?attr/listPreferredItemPaddingRight" />
++    </LinearLayout>
++
++    <ImageView
++        android:id="@+id/imageView"
++        android:layout_width="match_parent"
++        android:layout_height="466dp" />
++
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/drawable/buttonstyleimageupload.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/buttonstyleimageupload.xml	(date 1556363956202)
++++ app/src/main/res/drawable/buttonstyleimageupload.xml	(date 1556363956202)
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++    <solid android:color="@color/pink"/>
++    <item android:drawable="@drawable/camera_icon" />
++</selector>
+\ No newline at end of file
+Index: app/src/main/java/com/AlisaCiubotaru/quickreport/CheckStatus.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/AlisaCiubotaru/quickreport/CheckStatus.java	(revision a3fc79e6133ec34fdde018b701fad53d74d8abe8)
++++ app/src/main/java/com/AlisaCiubotaru/quickreport/CheckStatus.java	(date 1559083030853)
+@@ -1,31 +1,72 @@
+ package com.AlisaCiubotaru.quickreport;
+ 
+-//import android.content.Intent;
+-//
+-//import com.google.firebase.auth.FirebaseAuth;
+-
+ import android.os.Bundle;
++import android.support.annotation.NonNull;
+ import android.support.v7.app.AppCompatActivity;
+ import android.view.View;
++import android.widget.Button;
++import android.widget.TextView;
++import android.widget.Toast;
++
++import com.google.firebase.database.DataSnapshot;
++import com.google.firebase.database.DatabaseError;
++import com.google.firebase.database.DatabaseReference;
++import com.google.firebase.database.FirebaseDatabase;
++import com.google.firebase.database.ValueEventListener;
++
++import java.util.ArrayList;
+ 
+ public class CheckStatus extends AppCompatActivity implements View.OnClickListener {
+ 
++    private Button uselessButton;
++    private TextView textViewUseless;
++    private ArrayList<Problema> problemelist;
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_checkstatus);
++
++        uselessButton = findViewById(R.id.btnchk);
++        uselessButton.setOnClickListener(this);
++
++        textViewUseless = findViewById(R.id.textViewtv);
+     }
+ 
+     @Override
+-    public void onClick(View v) {
++    public void onClick(View view) {
++        if ( view == uselessButton)
++        {
++            textViewUseless.setText("Macaar nu crapa...");
++            getUserForTest();
++//            textViewUseless.setText(problemelist.get(0).getEmailReporter());
++        }
++    }
++
++    public void getUserForTest(){
++        DatabaseReference ref1= FirebaseDatabase.getInstance().getReference();
++        DatabaseReference ref2;
++        ref2 = ref1.child("Probleme");
++
++
++        ref2.addListenerForSingleValueEvent(new ValueEventListener() {
++            @Override
++            public void onDataChange(DataSnapshot dataSnapshot) {
++
++                problemelist = new ArrayList<Problema>();
++                for (DataSnapshot dsp : dataSnapshot.getChildren())	 		{
++//                    problemelist.add(dsp.getValue(Problema.class));
+ 
+-    }
++                    Problema p = dsp.getValue(Problema.class);
++                    Toast.makeText(getApplicationContext(), "ALISA: p1User= "+p.getEmailReporter(), Toast.LENGTH_LONG).show();
++
++                }
++            }
+ 
+-//    private FirebaseAuth mAuth;
+-//
+-//    mAuth = FirebaseAuth.getInstance();
+-//        if( mAuth.getCurrentUser() == null){
+-//        finish();
+-//        startActivity(new Intent(this, StartApp.class));
+-//    }
++            @Override
++            public void onCancelled(@NonNull DatabaseError databaseError) {
++
++            }
++        });
++    }
+ }
+Index: app/src/main/java/com/AlisaCiubotaru/quickreport/ViewDatabase.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/AlisaCiubotaru/quickreport/ViewDatabase.java	(date 1559168946651)
++++ app/src/main/java/com/AlisaCiubotaru/quickreport/ViewDatabase.java	(date 1559168946651)
+@@ -0,0 +1,101 @@
++package com.AlisaCiubotaru.quickreport;
++
++import android.os.Bundle;
++import android.support.annotation.NonNull;
++import android.support.v7.app.AppCompatActivity;
++import android.support.v7.widget.LinearLayoutManager;
++import android.support.v7.widget.RecyclerView;
++import android.view.View;
++import android.widget.Button;
++import android.widget.ListView;
++import android.widget.TextView;
++
++import com.google.firebase.auth.FirebaseAuth;
++import com.google.firebase.database.DataSnapshot;
++import com.google.firebase.database.DatabaseError;
++import com.google.firebase.database.DatabaseReference;
++import com.google.firebase.database.FirebaseDatabase;
++import com.google.firebase.database.ValueEventListener;
++
++import java.util.ArrayList;
++import java.util.List;
++
++public class ViewDatabase extends AppCompatActivity implements View.OnClickListener {
++    private Button btnRezolva;
++
++    private List<Problema> problemaAll;
++    private RecyclerView rv;
++    private MyAdapter adapter;
++
++    private TextView textView2;
++    private TextView textView21;
++    private Button rezolvat;
++
++    private FirebaseDatabase mFirebaseDatabase;
++    private FirebaseAuth mAuth;
++    private FirebaseAuth.AuthStateListener mAuthListener;
++    private DatabaseReference myRef;
++    private String userID;
++
++    private ListView mListView;
++
++    ArrayList<Problema> listProbleme;
++    Problema problema;
++
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        setContentView(R.layout.activity_viewdatabase);
++        super.onCreate(savedInstanceState);
++
++
++        mFirebaseDatabase = FirebaseDatabase.getInstance();
++        myRef = mFirebaseDatabase.getReference().child("Probleme");
++
++        textView2 = (TextView) findViewById(R.id.tvUserInfo);
++        textView21 = (TextView) findViewById(R.id.tvUserInfo2);
++
++        btnRezolva = findViewById(R.id.btnmarksolved);
++//        btnRezolva.setOnClickListener(new View.OnClickListener() {
++//            @Override
++//            public void onClick(View view) {
++//
++//            }
++//        });
++
++        listProbleme = new ArrayList<>();
++        problema = new Problema();
++
++        rv = (RecyclerView)findViewById(R.id.recyclerview);
++        rv.setHasFixedSize(true);
++        rv.setLayoutManager(new LinearLayoutManager(this));
++        problemaAll = new ArrayList<>();
++
++        myRef.addValueEventListener(new ValueEventListener() {
++            @Override
++            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
++                showData(dataSnapshot);
++            }
++
++            @Override
++            public void onCancelled(@NonNull DatabaseError databaseError) {
++
++            }
++        });
++
++    }
++
++    private void showData(DataSnapshot dataSnapshot) {
++        for(DataSnapshot ds : dataSnapshot.getChildren()){
++
++            problema = ds.getValue(Problema.class);
++            listProbleme.add(problema);
++        }
++        adapter = new MyAdapter(listProbleme);
++        rv.setAdapter(adapter);
++    }
++
++    @Override
++    public void onClick(View view) {
++    }
++}
+Index: app/src/main/res/layout/activity_viewdatabase.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_viewdatabase.xml	(date 1559165482017)
++++ app/src/main/res/layout/activity_viewdatabase.xml	(date 1559165482017)
+@@ -0,0 +1,32 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:orientation="vertical" android:layout_width="match_parent"
++    android:layout_height="match_parent">
++
++    <TextView
++        android:id="@+id/tvUserInfo"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:text="User information"
++        android:textAlignment="center"
++        android:textSize="28sp" />
++    <TextView
++        android:id="@+id/tvUserInfo2"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:text="User information"
++        android:textAlignment="center"
++        android:textSize="28sp" />
++
++    <ListView
++        android:id="@+id/listview"
++        android:layout_width="match_parent"
++        android:layout_height="140dp" />
++
++    <android.support.v7.widget.RecyclerView
++    android:id="@+id/recyclerview"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent">
++
++    </android.support.v7.widget.RecyclerView>
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/AlisaCiubotaru/quickreport/Report.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/AlisaCiubotaru/quickreport/Report.java	(revision a3fc79e6133ec34fdde018b701fad53d74d8abe8)
++++ app/src/main/java/com/AlisaCiubotaru/quickreport/Report.java	(date 1558990146190)
+@@ -1,40 +1,72 @@
++
+ package com.AlisaCiubotaru.quickreport;
+ 
+ import android.content.Intent;
+ import android.os.Bundle;
++import android.support.annotation.NonNull;
+ import android.support.v7.app.AppCompatActivity;
+ import android.view.View;
+ import android.widget.AdapterView;
+ import android.widget.ArrayAdapter;
+ import android.widget.Button;
++import android.widget.EditText;
++import android.widget.ImageButton;
+ import android.widget.Spinner;
+ import android.widget.TextView;
+ import android.widget.Toast;
+ 
++import com.google.firebase.auth.FirebaseAuth;
++import com.google.firebase.auth.FirebaseUser;
++import com.google.firebase.database.DataSnapshot;
++import com.google.firebase.database.DatabaseError;
++import com.google.firebase.database.DatabaseReference;
++import com.google.firebase.database.FirebaseDatabase;
++import com.google.firebase.database.ValueEventListener;
++
+ public class Report extends AppCompatActivity implements View.OnClickListener {
+     private Button send;
++    private ImageButton openCamera;
++    private EditText moreDetails;
+     private Spinner dropdown;
+-    private String to, subject, message;
++    private String to, subject, mesajMail;
+     private TextView room;
++    private TextView pathImgText;
++    private Problema problema;
++    private String details;
++    private String userUuid;
++    final String[] username = new String[1];
++    final String[] fullNameReporter = new String[1];
++    final String[] email = new String[1];
++    private String pathImg;//pathImgText.getText().toString();
++    private String roomtext;
++    Boolean success = false;
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_report);
+ 
+-        send = findViewById(R.id.buttonSend);
++        send = findViewById(R.id.reportbtnraporteazapb);
+         send.setOnClickListener(this);
+ 
++        openCamera = findViewById(R.id.reportbtnuploadImg);
++        openCamera.setOnClickListener(this);
++
++        moreDetails = findViewById(R.id.reportmessage);
++
+         room = findViewById(R.id.reportRoom);
+         room.setText(FloorPlanLoaded.getRoom());
+-        //get the spinner from the xml.
+-        dropdown = findViewById(R.id.spinnerProblemTarget);
+-        //create a list of items for the spinner.
+-        String[] items = new String[]{"Plumber", "Electrician", "three"};
+-//create an adapter to describe how the items are displayed, adapters are used in several places in android.
+-//There are multiple variations of this, but this is the basic variant.
++
++        pathImgText = findViewById(R.id.reportpathImg);
++// aici preluam textul din camera capture
++//        pathImgText.setText(getIntent().getStringExtra("mesaj"));
++
++
++
++
++        dropdown = findViewById(R.id.reportspinnerProblemTarget);
++        String[] items = new String[]{"Instalator", "Electrician", "Aparat cafea", "Alta problema"};
+         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+-//set the spinners adapter to the previously created one.
+         dropdown.setAdapter(adapter);
+         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+             @Override
+@@ -42,19 +74,32 @@
+                                        int position, long id) {
+                 switch (position) {
+                     case 0:
+-                        // Plumber
++                        // Instalator
+                         to = "alisa.ciubotaru@gmail.com";
+-                        subject = "QuickReport: New plumber issue reported in "+ room.getText().toString();
+-                        message = "Hello Mr/Ms Plumber\n. A new plumber issue was reported in " + room.getText().toString();
++                        subject = "QuickReport: Problema instalatie raportata in "+ room.getText().toString();
++                        mesajMail = "Buna ziua domnule Instalator,\n O noua problema a fost raportata in: " + room.getText().toString()+
++                                ".\n"+"Detalii: ";
+                         break;
+                     case 1:
+                         // Electrician
+                         to = "alisa.ciubotaru@ligaac.ro";
+-                        subject = "QuickReport: New electrician issue reported in "+ room.getText().toString();
+-                        message = "Hello Mr/Ms Electrician\n. A new plumber issue was reported in " + room.getText().toString();
++                        subject = "QuickReport: Problema instalatie electrica raportata in "+ room.getText().toString();
++                        mesajMail = "Buna ziua domnule Electrician,\n O noua problema a fost raportata in: " + room.getText().toString()+
++                                ".\n"+"Detalii: ";
+                         break;
+                     case 2:
+-                        // Three
++                        // Aparat cafea
++                        to = "alisa.ciubotaru@ligaac.ro";
++                        subject = "QuickReport: Problema aparat cafea raportata in "+ room.getText().toString();
++                        mesajMail = "Buna ziua domnule,\n O noua problema a fost raportata in: " + room.getText().toString()+
++                                ".\n"+"Detalii: ";
++                        break;
++                    case 3:
++                        // Alta problema
++                        to = "alisa.ciubotaru@ligaac.ro";
++                        subject = "QuickReport: Problema raportata in "+ room.getText().toString();
++                        mesajMail = "Buna ziua domnule,\n O noua problema a fost raportata in: " + room.getText().toString()+
++                                ".\n"+"Detalii: ";
+                         break;
+ 
+                 }
+@@ -67,14 +112,105 @@
+         });
+     }
+ 
++    public void raporteazaProblema()
++    {
++        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
++        final String userid=user.getUid();
++        userUuid =userid;
++        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User");
++        Toast.makeText(getApplicationContext(), "ALISA: reference= "+reference.toString(), Toast.LENGTH_LONG).show();
++
++//room.getText().toString();
++//        String detailspb = details;
++
++
++        reference.child(userid).addListenerForSingleValueEvent(new ValueEventListener() {
++            @Override
++            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
++
++                email[0] = dataSnapshot.child("email").getValue(String.class);
++                Toast.makeText(getApplicationContext(), "ALISA email: "+ email[0], Toast.LENGTH_LONG).show();
++                fullNameReporter[0] = dataSnapshot.child("fullName").getValue(String.class);
++                Toast.makeText(getApplicationContext(), "ALISA fullNameReporter: "+ fullNameReporter[0], Toast.LENGTH_LONG).show();
++                username[0] = dataSnapshot.child("username").getValue(String.class);
++                Toast.makeText(getApplicationContext(), "ALISA room: "+ roomtext, Toast.LENGTH_LONG).show();
++
++//                changed = true;
++
++//                String fullName = dataSnapshot.child("fullName").getValue(String.class);
++                Toast.makeText(getApplicationContext(), "ALISA: pathImage "+ pathImg, Toast.LENGTH_LONG).show();
++//                tv.setText("Email: "+email+" fullNameUser: "+fullName);
++//
++
++                Toast.makeText(getApplicationContext(), "ALISA: problemaEmail11111111= " + email[0], Toast.LENGTH_LONG).show();
++                Problema problema1 = new Problema(username[0], email[0], pathImg, details, fullNameReporter[0], roomtext,userid);
++                Toast.makeText(getApplicationContext(), "ALISA: problemaPATHIMG2222222= " + problema1.getPathImg(), Toast.LENGTH_LONG).show();
++
++                success = problema1.raporteazaProblema(problema1);
++
++                Intent intent1 = new Intent(getBaseContext(), ReportOrCheck.class);
++                startActivity(intent1);
++            }
++
++            @Override
++            public void onCancelled(@NonNull DatabaseError databaseError) {
++
++            }
++        } );
++    }
++
+     @Override
+     public void onClick(View v) {
+         if (v == send) {
+-            new Email().sendEmail(to, subject, message);
+-            Toast.makeText(Report.this, "Problem reported sucessful!", Toast.LENGTH_SHORT).show();
++            details = moreDetails.getText().toString();
++            roomtext = room.getText().toString();
++            raporteazaProblema();
++            Toast.makeText(Report.this, "DETAILS!= "+details, Toast.LENGTH_SHORT).show();
++
++
++
++
++//            if(changed) {
++
++
++//                FirebaseDatabase.getInstance().getReference("Probleme")
++//                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
++//                        .setValue(problema1).addOnCompleteListener(new OnCompleteListener<Void>() {
++//                    @Override
++//                    public void onComplete(@NonNull Task<Void> task) {
++//                        Toast.makeText(Report.this, "Problema raportata cu success!", Toast.LENGTH_SHORT).show();
++//                        startActivity(new Intent(getApplicationContext(), StartApp.class));
++//                    }
++//                });
++//                changed = false;
++//            }
++
++
++
++            new Email().sendEmail(to, subject, mesajMail+details);
++            Toast.makeText(Report.this, "Mail trimis!", Toast.LENGTH_SHORT).show();
++        }
++
++        if (v == openCamera){
++            Intent i = new Intent(this, CameraCapture.class);
++            startActivityForResult(i,1);
++        }
++    }
+ 
+-            Intent intent = new Intent(this, ReportedSuccess.class);
+-            startActivity(intent);
++    public void onActivityResult(int requestCode, int resultCode, Intent data) {
++        super.onActivityResult(requestCode, resultCode, data);
++        if (requestCode == 1) {
++            if(resultCode == RESULT_OK) {
++                pathImg = data.getStringExtra("cameraPathTextValue");
++                String strImageName = data.getStringExtra("imageName");
++                pathImgText.setText(strImageName);
++            }
++        }
++
++        if (success)
++        {
++            Toast.makeText(Report.this, "SUCCEEEEEESSSS", Toast.LENGTH_SHORT).show();
++
+         }
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_listdata.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_listdata.xml	(date 1559168843151)
++++ app/src/main/res/layout/activity_listdata.xml	(date 1559168843151)
+@@ -0,0 +1,57 @@
++<?xml version="1.0" encoding="utf-8"?>
++
++    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
++        xmlns:tools="http://schemas.android.com/tools"
++        android:orientation="vertical" android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    android:layout_margin="5dp">
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:gravity="center"
++        android:orientation="vertical">
++
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="match_parent"
++            android:orientation="horizontal">
++
++            <TextView
++                android:id="@+id/nametxt"
++                android:layout_width="143dp"
++
++                android:layout_height="wrap_content"
++                android:layout_gravity="center|left"
++                android:gravity="center"
++                android:text="User2"
++                android:textColor="@color/pink"
++                android:textSize="18sp" />
++
++            <TextView
++                android:id="@+id/movietxt"
++                android:layout_width="144dp"
++
++                android:layout_height="wrap_content"
++                android:layout_gravity="center"
++                android:gravity="center"
++                android:text="Great Room"
++                android:textColor="@color/pink"
++                android:textSize="18sp" />
++
++            <Button
++                android:id="@+id/btnmarksolved"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_weight="1"
++                android:textColor="#fff"
++                android:textSize="10sp"
++                android:drawableRight="@drawable/ic_send_white_24dp"
++                android:background="@drawable/buttonstylepink"
++                android:text="Rezolvat" />
++
++        </LinearLayout>
++
++    </LinearLayout>
++
++    </android.support.v7.widget.CardView>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_report.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_report.xml	(revision a3fc79e6133ec34fdde018b701fad53d74d8abe8)
++++ app/src/main/res/layout/activity_report.xml	(date 1558557834680)
+@@ -1,5 +1,7 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:background="@color/white"
+@@ -26,37 +28,30 @@
+         android:textSize="18sp" />
+ 
+     <Spinner
+-        android:id="@+id/spinnerProblemTarget"
++        android:id="@+id/reportspinnerProblemTarget"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:background="@android:drawable/btn_dropdown"
+         android:spinnerMode="dropdown"/>
+ 
+-    <EditText
+-        android:id="@+id/editText"
++    <LinearLayout
+         android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:backgroundTint="@color/white"
+-        android:hint="Name"
+-        android:inputType="textPersonName" />
++        android:layout_height="54dp"
++        android:orientation="horizontal">
+ 
+-    <EditText
+-        android:id="@+id/reportemail"
+-        android:layout_width="fill_parent"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="10dp"
+-        android:layout_marginBottom="10dp"
+-        android:backgroundTint="@color/white"
+-        android:hint="Email"
+-        android:inputType="textEmailAddress" />
++        <ImageButton
++            android:id="@+id/reportbtnuploadImg"
++            android:layout_width="69dp"
++            android:layout_height="55dp"
++            app:srcCompat="@drawable/buttonstyleimageupload" />
+ 
+-    <EditText
+-        android:id="@+id/reportphone"
+-        android:layout_width="fill_parent"
+-        android:layout_height="wrap_content"
+-        android:backgroundTint="@color/white"
+-        android:hint="Phone"
+-        android:inputType="phone" />
++        <TextView
++            android:id="@+id/reportpathImg"
++            android:layout_width="157dp"
++            android:layout_height="match_parent"
++            android:gravity="center"
++            android:text="Upload image" />
++    </LinearLayout>
+ 
+     <EditText
+         android:id="@+id/reportmessage"
+@@ -68,14 +63,14 @@
+         android:breakStrategy="balanced"
+         android:fitsSystemWindows="true"
+         android:gravity="top"
+-        android:hint="Your Message"
++        android:hint="Mai multe detalii..."
+         android:inputType="textMultiLine"
+         android:padding="5dp"
+         android:singleLine="false" />
+ 
+ 
+     <Button
+-        android:id="@+id/buttonSend"
++        android:id="@+id/reportbtnraporteazapb"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+@@ -83,8 +78,13 @@
+         android:elevation="4dp"
+         android:paddingLeft="70dp"
+         android:paddingRight="70dp"
+-        android:text="Submit"
++        android:text="Raporteaza"
+         android:textColor="#fff" />
+ 
++    <ImageView
++        android:id="@+id/imageView"
++        android:layout_width="match_parent"
++        android:layout_height="400dp" />
++
+ 
+ </LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/AlisaCiubotaru/quickreport/MyAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/AlisaCiubotaru/quickreport/MyAdapter.java	(date 1559170209534)
++++ app/src/main/java/com/AlisaCiubotaru/quickreport/MyAdapter.java	(date 1559170209534)
+@@ -0,0 +1,64 @@
++package com.AlisaCiubotaru.quickreport;
++
++import android.support.annotation.NonNull;
++import android.support.v7.widget.RecyclerView;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.Button;
++import android.widget.TextView;
++
++import java.util.List;
++
++public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
++private List<Problema>listData;
++
++public MyAdapter(List<Problema> listData) {
++        this.listData = listData;
++        }
++
++@NonNull
++@Override
++public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
++        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_listdata,parent,false);
++        return new ViewHolder(view);
++        }
++
++@Override
++public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
++        Problema ld=listData.get(position);
++//        holder.txtid.setText(ld.getId());
++        holder.txtname.setText(ld.getUsernameReporter());
++        holder.txtmovie.setText(ld.getRoomReporter());
++
++//        final String aux = ld.getMoreDetails();
++        //To modify ON_CLICK
++        holder.btnmark.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View view) {
++                holder.txtmovie.setText("Butonul functioneaza");
++
++            }
++        });
++
++
++        }
++
++@Override
++public int getItemCount() {
++        return listData.size();
++        }
++
++public class ViewHolder extends RecyclerView.ViewHolder{
++    private TextView txtid,txtname,txtmovie;
++    private Button btnmark;
++    public ViewHolder(View itemView) {
++        super(itemView);
++//        txtid=(TextView)itemView.findViewById(R.id.idtxt);
++        txtname=(TextView)itemView.findViewById(R.id.nametxt);
++        txtmovie=(TextView)itemView.findViewById(R.id.movietxt);
++        btnmark = (Button) itemView.findViewById(R.id.btnmarksolved);
++    }
++}
++}
++
+Index: app/src/main/java/com/AlisaCiubotaru/quickreport/UploadImage.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/AlisaCiubotaru/quickreport/UploadImage.java	(date 1556375156315)
++++ app/src/main/java/com/AlisaCiubotaru/quickreport/UploadImage.java	(date 1556375156315)
+@@ -0,0 +1,34 @@
++package com.AlisaCiubotaru.quickreport;
++
++public class UploadImage {
++    private String mName;
++    private String mImageUrl;
++
++    public  UploadImage(){
++
++    }
++
++    public  UploadImage(String name, String imageUrl){
++        if(name.trim().equals("")){
++            name = "No Name";
++        }
++        mName = name;
++        mImageUrl = imageUrl;
++    }
++
++    public String getmName(){
++        return mName;
++    }
++
++    public void setmName(String name) {
++        mName = name;
++    }
++
++    public String getmImageUrl(){
++        return mImageUrl;
++    }
++
++    public void setmImageUrl(String imageUrl){
++        mImageUrl = imageUrl;
++    }
++}
+Index: app/src/main/java/com/AlisaCiubotaru/quickreport/Scanner.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/AlisaCiubotaru/quickreport/Scanner.java	(date 1556395590109)
++++ app/src/main/java/com/AlisaCiubotaru/quickreport/Scanner.java	(date 1556395590109)
+@@ -0,0 +1,32 @@
++package com.AlisaCiubotaru.quickreport;
++
++import android.graphics.Bitmap;
++import android.graphics.BitmapFactory;
++import android.net.Uri;
++
++import java.io.FileNotFoundException;
++
++/**
++ * Created by csa on 3/15/2017.
++ */
++
++public class Scanner {
++
++    public Bitmap decodeBitmapUri(CameraCapture ctx, Uri uri) throws FileNotFoundException {
++        int targetW = 1000;
++        int targetH = 1000;
++        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
++        bmOptions.inJustDecodeBounds = true;
++        BitmapFactory.decodeStream(ctx.getContentResolver().openInputStream(uri), null, bmOptions);
++        int photoW = bmOptions.outWidth;
++        int photoH = bmOptions.outHeight;
++
++        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
++        bmOptions.inJustDecodeBounds = false;
++        bmOptions.inSampleSize = scaleFactor;
++
++
++        return BitmapFactory.decodeStream(ctx.getContentResolver()
++                .openInputStream(uri), null, bmOptions);
++    }
++}
+Index: app/src/main/res/layout/activity_checkstatus.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_checkstatus.xml	(revision a3fc79e6133ec34fdde018b701fad53d74d8abe8)
++++ app/src/main/res/layout/activity_checkstatus.xml	(date 1558550623817)
+@@ -4,8 +4,30 @@
+     android:layout_height="match_parent">
+ 
+     <TextView
+-        android:id="@+id/textView3"
++        android:id="@+id/textViewtv"
+         android:layout_width="match_parent"
+         android:layout_height="197dp"
+         android:text="Nothing to show yet!!!!" />
++
++    <Button
++        android:id="@+id/btnchk"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:text="Button" />
++
++    <ScrollView
++        android:layout_width="match_parent"
++        android:layout_height="match_parent">
++
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:orientation="vertical" >
++
++            <android.support.v7.widget.RecyclerView
++                android:id="@+id/listaprob"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content" />
++        </LinearLayout>
++    </ScrollView>
+ </LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/colors.xml	(revision a3fc79e6133ec34fdde018b701fad53d74d8abe8)
++++ app/src/main/res/values/colors.xml	(date 1556363467673)
+@@ -2,7 +2,7 @@
+ <resources>
+     <color name="colorPrimary">#3F51B5</color>
+     <color name="white">#C2C4CA</color>
+-    <color name="colorPrimaryDark">#28283a</color>
++    <color name="colorPrimaryDark">#28283A</color>
+     <color name="colorAccent">#FF4081</color>
+     <color name="pink">#fe104d</color>
+     <color name="colorbackground2">#3F51B5</color>
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision a3fc79e6133ec34fdde018b701fad53d74d8abe8)
++++ app/src/main/res/values/strings.xml	(date 1556393247521)
+@@ -2,4 +2,5 @@
+     <string name="app_name">QuickReport</string>
+     <string name="welcome_msg">Welcome to Apl</string>
+     <string name="loginDescr_msg">Jelly candy sugar plum cheesecake brownie I love. Caramels apple pie marzipan oat cake chocolate bar cake gingerbread. Caramels I love I love lemon drops toffee cotton candy croissant chocolate bar gummies.</string>
++    <string name="please_wait_text">Please wait...</string>
+ </resources>
+Index: app/google-services.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/google-services.json	(revision a3fc79e6133ec34fdde018b701fad53d74d8abe8)
++++ app/google-services.json	(date 1558211719076)
+@@ -15,6 +15,14 @@
+       },
+       "oauth_client": [
+         {
++          "client_id": "763824210606-cteuhmdfp772f3lifjrh662ld6c96bm4.apps.googleusercontent.com",
++          "client_type": 1,
++          "android_info": {
++            "package_name": "com.AlisaCiubotaru.quickreport",
++            "certificate_hash": "660b3564b77cadcb2251249723df830e1b44f6b7"
++          }
++        },
++        {
+           "client_id": "763824210606-5opnrji0aq956n0812l71q900o5qmsm7.apps.googleusercontent.com",
+           "client_type": 1,
+           "android_info": {
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision a3fc79e6133ec34fdde018b701fad53d74d8abe8)
++++ app/build.gradle	(date 1559164840537)
+@@ -4,7 +4,7 @@
+     compileSdkVersion 27
+     defaultConfig {
+         applicationId "com.AlisaCiubotaru.quickreport"
+-        minSdkVersion 15
++        minSdkVersion 16
+         targetSdkVersion 27
+         versionCode 1
+         versionName "1.0"
+@@ -20,17 +20,21 @@
+ 
+ dependencies {
+     implementation fileTree(dir: 'libs', include: ['*.jar'])
+-    implementation 'com.android.support:appcompat-v7:27.1.1'
+-    implementation 'com.android.support:cardview-v7:27.1.1'
+-    implementation 'com.android.support:design:27.1.1'
+-    implementation 'com.google.firebase:firebase-auth:16.2.1'
+-    implementation 'com.google.firebase:firebase-database:16.0.1'
+-    testImplementation 'junit:junit:4.12'
++    implementation 'com.android.support:appcompat-v7:27.0.0'
++    implementation 'com.android.support:cardview-v7:27.0.0'
++    implementation 'com.android.support:design:27.0.0'
++    implementation 'com.google.firebase:firebase-auth:17.0.0'
++    implementation 'com.google.firebase:firebase-database:17.0.0'
++//    implementation 'com.firebaseui:firebase-ui-database:6.0.0'
++    implementation 'com.google.firebase:firebase-storage:17.0.0'
++    testImplementation 'junit:junit:4.13-beta-3'
+     androidTestImplementation 'com.android.support.test:runner:1.0.2'
+     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+-    implementation 'com.google.firebase:firebase-core:16.0.8'
+-    implementation 'com.sun.mail:android-mail:1.5.5'
+-    implementation 'com.sun.mail:android-activation:1.5.5'
++    implementation 'com.google.firebase:firebase-core:16.0.9'
++    implementation 'com.sun.mail:android-mail:1.6.3'
++    implementation 'com.sun.mail:android-activation:1.6.3'
++    implementation 'com.android.support:recyclerview-v7:27.0.0'
++    implementation 'com.firebase:firebase-client-android:2.5.2'
+ }
+ 
+ apply plugin: 'com.google.gms.google-services'
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- build.gradle	(revision a3fc79e6133ec34fdde018b701fad53d74d8abe8)
++++ build.gradle	(date 1558209199605)
+@@ -7,7 +7,7 @@
+         
+     }
+     dependencies {
+-        classpath 'com.android.tools.build:gradle:3.4.0'
++        classpath 'com.android.tools.build:gradle:3.4.1'
+         classpath 'com.google.gms:google-services:4.2.0'
+         // NOTE: Do not place your application dependencies here; they belong
+         // in the individual module build.gradle files
+diff --git app/src/main/res/drawable/camera_icon.png app/src/main/res/drawable/camera_icon.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..2abfe8205f06014f2faef9f972d18a4f9155415d
+GIT binary patch
+literal 4084
+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
+

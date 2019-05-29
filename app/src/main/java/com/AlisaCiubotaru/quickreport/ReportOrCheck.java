@@ -28,7 +28,8 @@ public class ReportOrCheck extends AppCompatActivity implements View.OnClickList
     }
 
     public void openActivityCheck(){
-        Intent intent = new Intent(this, CheckStatus.class);
+//        Intent intent = new Intent(this, CheckStatus.class);
+        Intent intent = new Intent(this, ViewDatabase.class);
         startActivity(intent);
     }
 

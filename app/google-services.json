@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "763824210606-cteuhmdfp772f3lifjrh662ld6c96bm4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.AlisaCiubotaru.quickreport",
+            "certificate_hash": "660b3564b77cadcb2251249723df830e1b44f6b7"
+          }
+        },
+        {
           "client_id": "763824210606-5opnrji0aq956n0812l71q900o5qmsm7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -26,37 +28,30 @@
         android:textSize="18sp" />
 
     <Spinner
-        android:id="@+id/spinnerProblemTarget"
+        android:id="@+id/reportspinnerProblemTarget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"/>
 
-    <EditText
-        android:id="@+id/editText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:hint="Name"
-        android:inputType="textPersonName" />
+        android:layout_height="54dp"
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/reportemail"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/white"
-        android:hint="Email"
-        android:inputType="textEmailAddress" />
+        <ImageButton
+            android:id="@+id/reportbtnuploadImg"
+            android:layout_width="69dp"
+            android:layout_height="55dp"
+            app:srcCompat="@drawable/buttonstyleimageupload" />
 
-    <EditText
-        android:id="@+id/reportphone"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:hint="Phone"
-        android:inputType="phone" />
+        <TextView
+            android:id="@+id/reportpathImg"
+            android:layout_width="157dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Upload image" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/reportmessage"
@@ -68,14 +63,14 @@
         android:breakStrategy="balanced"
         android:fitsSystemWindows="true"
         android:gravity="top"
-        android:hint="Your Message"
+        android:hint="Mai multe detalii..."
         android:inputType="textMultiLine"
         android:padding="5dp"
         android:singleLine="false" />
 
 
     <Button
-        android:id="@+id/buttonSend"
+        android:id="@+id/reportbtnraporteazapb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -83,8 +78,13 @@
         android:elevation="4dp"
         android:paddingLeft="70dp"
         android:paddingRight="70dp"
-        android:text="Submit"
+        android:text="Raporteaza"
         android:textColor="#fff" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp" />
 
 
 </LinearLayout>

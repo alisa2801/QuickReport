@@ -81,18 +81,13 @@ public class StartApp extends AppCompatActivity implements View.OnClickListener 
         final String mail = email.getText().toString().trim();
         final String pass = password.getText().toString().trim();
 
-        if(TextUtils.isEmpty(mail)){
+        if(TextUtils.isEmpty(mail) || TextUtils.isEmpty(pass)){
             //empty username
-            Toast.makeText(StartApp.this,"Please enter Email",Toast.LENGTH_SHORT).show();
+            Toast.makeText(StartApp.this,"Please enter Email and Password",Toast.LENGTH_SHORT).show();
             //stop the function to execute
-//            return;
+            return;
         }
 
-        if(TextUtils.isEmpty(pass)){
-            //empty password
-            Toast.makeText(StartApp.this, "Please enter Password containing 1 UPPER letter",Toast.LENGTH_SHORT).show();
-//            return;
-        }
 
         mAuth.signInWithEmailAndPassword(mail, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
